@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
 // SVG Icons as React components for reliable rendering
 const DashboardIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="10" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
@@ -164,19 +166,19 @@ function App() {
   useEffect(() => {
     const fetchBackendData = async () => {
       try {
-        const telemetryRes = await fetch('http://localhost:5000/api/telemetry');
+        const telemetryRes = await fetch(`${API_BASE_URL}/api/telemetry`);
         if (telemetryRes.ok) {
           const telemetryData = await telemetryRes.json();
           setActivities(telemetryData);
         }
         
-        const questsRes = await fetch('http://localhost:5000/api/quests');
+        const questsRes = await fetch(`${API_BASE_URL}/api/quests`);
         if (questsRes.ok) {
           const questsData = await questsRes.json();
           setQuests(questsData);
         }
 
-        const notifyRes = await fetch('http://localhost:5000/api/notifications');
+        const notifyRes = await fetch(`${API_BASE_URL}/api/notifications`);
         if (notifyRes.ok) {
           const notifyData = await notifyRes.json();
           setNotifications(notifyData);
@@ -266,7 +268,7 @@ function App() {
     setIsAiTyping(true);
 
     try {
-      const chatRes = await fetch('http://localhost:5000/api/chat', {
+      const chatRes = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text })

@@ -1,0 +1,23 @@
+services:
+  # Express Backend Web Service
+  - type: web
+    name: carbon-footprint-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: PORT
+        value: 5000
+
+  # React Frontend Static Site
+  - type: web
+    name: carbon-footprint-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false
+        value: https://replace-with-your-backend-url.onrender.com
