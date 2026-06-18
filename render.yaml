@@ -19,5 +19,4 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_BASE_URL
-        sync: false
         value: https://replace-with-your-backend-url.onrender.com
